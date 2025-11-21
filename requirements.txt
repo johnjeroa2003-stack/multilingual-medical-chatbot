@@ -1,0 +1,7 @@
+streamlit
+transformers>=4.30
+googletrans==4.0.0-rc1
+sentencepiece
+safetensors
+# NOTE: torch is not included here because on Windows it is better to install the correct wheel manually.
+# See README.md for the recommended PyTorch installation commands for CPU-only or CUDA.
