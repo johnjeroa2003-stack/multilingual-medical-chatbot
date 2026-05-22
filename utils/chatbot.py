@@ -1,31 +1,86 @@
 from transformers import pipeline
 
-# Load FLAN-T5 model using PyTorch
+# Load model
 chatbot_pipeline = pipeline(
     task="text2text-generation",
-    model="google/flan-t5-base",
+    model="google/flan-t5-small",
     framework="pt"
 )
 
 
 def generate_medical_response(user_input):
-    """
-    Generates medical-related response.
-    """
 
-    prompt = f"""
-    You are a helpful medical assistant.
+    user_input = user_input.lower()
 
-    Provide only basic medical guidance.
-    Do not provide dangerous advice.
-    Keep the response simple and safe.
+    # Fever response
+    if "fever" in user_input:
+        return """
+Fever may occur because of viral infection, flu, or body infection.
 
-    User Question: {user_input}
-    """
+Precautions:
+- Drink plenty of water
+- Take proper rest
+- Eat healthy food
 
-    response = chatbot_pipeline(
-        prompt,
-        max_length=200
-    )
+Consult a doctor if fever continues for more than 2 days.
+"""
 
-    return response[0]['generated_text']
+    # Headache response
+    elif "headache" in user_input:
+        return """
+Headache can happen because of stress, dehydration, or lack of sleep.
+
+Precautions:
+- Drink water
+- Take rest
+- Avoid too much screen time
+
+Consult a doctor if headache becomes severe.
+"""
+
+    # Diabetes response
+    elif "diabetes" in user_input:
+        return """
+Common symptoms of diabetes include:
+- Increased thirst
+- Frequent urination
+- Tiredness
+
+Maintain healthy food habits and regular exercise.
+
+Consult a doctor for proper diagnosis.
+"""
+
+    # Cold and cough response
+    elif "cold" in user_input or "cough" in user_input:
+        return """
+Cold and cough are usually caused by viral infections.
+
+Precautions:
+- Drink warm water
+- Take proper rest
+- Avoid cold foods
+
+Consult a doctor if symptoms become severe.
+"""
+
+    # General AI response
+    else:
+
+        prompt = f"""
+        You are a medical assistant chatbot.
+
+        Give short and simple medical advice.
+
+        Question: {user_input}
+
+        Answer:
+        """
+
+        response = chatbot_pipeline(
+            prompt,
+            max_length=150,
+            do_sample=False
+        )
+
+        return response[0]['generated_text']
