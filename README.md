@@ -64,3 +64,8 @@ multilingual-medical-chatbot/
 ├── data/
 ├── models/
 └── notebooks/
+
+# 🩺 Multilingual Medical Support Chatbot
+
+🚀 Live Demo:
+https://huggingface.co/spaces/Jerojohn/multilingual-medical-chatbot
