@@ -1,6 +1,6 @@
 from transformers import pipeline
 
-# Load model
+# Load FLAN-T5 model
 chatbot_pipeline = pipeline(
     task="text2text-generation",
     model="google/flan-t5-small",
@@ -12,74 +12,107 @@ def generate_medical_response(user_input):
 
     user_input = user_input.lower()
 
-    # Fever response
+    # Fever
     if "fever" in user_input:
         return """
-Fever may occur because of viral infection, flu, or body infection.
+Fever may occur due to viral or bacterial infections.
 
 Precautions:
-- Drink plenty of water
+- Drink plenty of fluids
 - Take proper rest
-- Eat healthy food
+- Eat nutritious food
 
-Consult a doctor if fever continues for more than 2 days.
+Consult a doctor if the fever persists for more than 2 days.
 """
 
-    # Headache response
+    # Headache
     elif "headache" in user_input:
         return """
-Headache can happen because of stress, dehydration, or lack of sleep.
+Headache may occur due to stress, dehydration, or lack of sleep.
 
 Precautions:
-- Drink water
+- Drink enough water
 - Take rest
-- Avoid too much screen time
+- Avoid excessive screen time
 
-Consult a doctor if headache becomes severe.
+Consult a doctor if the pain becomes severe.
 """
 
-    # Diabetes response
+    # Diabetes
     elif "diabetes" in user_input:
         return """
 Common symptoms of diabetes include:
 - Increased thirst
 - Frequent urination
-- Tiredness
+- Fatigue
 
-Maintain healthy food habits and regular exercise.
+Maintain a healthy diet and exercise regularly.
 
-Consult a doctor for proper diagnosis.
+Consult a doctor for diagnosis and treatment.
 """
 
-    # Cold and cough response
+    # Cold / Cough
     elif "cold" in user_input or "cough" in user_input:
         return """
-Cold and cough are usually caused by viral infections.
+Cold and cough are commonly caused by viral infections.
 
 Precautions:
-- Drink warm water
-- Take proper rest
-- Avoid cold foods
+- Drink warm fluids
+- Take adequate rest
+- Avoid cold foods and drinks
 
-Consult a doctor if symptoms become severe.
+Consult a doctor if symptoms worsen.
 """
 
-    # General AI response
+    # Sneezing
+    elif "sneezing" in user_input:
+        return """
+Sneezing may occur due to allergies, dust exposure, or a common cold.
+
+Precautions:
+- Avoid dust and allergens
+- Drink sufficient water
+- Maintain cleanliness
+
+Consult a doctor if symptoms continue for several days.
+"""
+
+    # Stomach Pain
+    elif "stomach" in user_input or "abdominal" in user_input:
+        return """
+Stomach pain may occur due to indigestion, gas, or infection.
+
+Precautions:
+- Drink water
+- Avoid spicy foods
+- Take proper rest
+
+Consult a doctor if pain becomes severe.
+"""
+
+    # General AI Response
     else:
 
         prompt = f"""
-        You are a medical assistant chatbot.
+You are a medical assistant.
 
-        Give short and simple medical advice.
+Answer the medical question in simple words.
 
-        Question: {user_input}
+Include:
+- Possible reasons
+- Basic precautions
+- When to see a doctor
 
-        Answer:
-        """
+Keep response short and clear.
+
+Question: {user_input}
+
+Answer:
+"""
 
         response = chatbot_pipeline(
             prompt,
-            max_length=150,
+            max_length=120,
             do_sample=False
         )
 
