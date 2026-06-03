@@ -68,4 +68,8 @@ multilingual-medical-chatbot/
 # 🩺 Multilingual Medical Support Chatbot
 
 🚀 Live Demo:
+<<<<<<< HEAD
 https://huggingface.co/spaces/Jerojohn/multilingual-medical-chatbot
+=======
+https://huggingface.co/spaces/Jerojohn/multilingual-medical-chatbot
+>>>>>>> debbf21 (Updated chatbot responses)

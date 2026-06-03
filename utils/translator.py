@@ -22,5 +22,4 @@ def translate_from_english(text, target_language):
         source='en',
         target=target_language
     ).translate(text)
-
     return translated_text
